@@ -1,0 +1,344 @@
+create database site;
+
+use site;
+
+CREATE TABLE clientes (
+id_c INT AUTO_INCREMENT PRIMARY KEY,
+nome_c VARCHAR(100) NOT NULL,
+email_c VARCHAR(100) UNIQUE NOT NULL,
+cpf VARCHAR(11) UNIQUE NOT NULL,
+telefone_c VARCHAR(15) NOT NULL,
+endereco_c TEXT NOT NULL
+);
+
+CREATE TABLE produtos (
+ID_p INT AUTO_INCREMENT PRIMARY KEY,
+nome_p VARCHAR(225) NOT NULL,
+descricao_p TEXT,
+preco_p DECIMAL(10, 2) NOT NULL,
+quantidade_estoque INT NOT NULL,
+imagem VARCHAR(255)
+);
+
+CREATE TABLE vendas (
+id_venda INT AUTO_INCREMENT PRIMARY KEY,
+id_c INT,
+data_venda DATETIME DEFAULT CURRENT_TIMESTAMP,
+total DECIMAL(10, 2) NOT NULL,
+FOREIGN KEY (id_c) REFERENCES clientes(id_c)
+);
+
+CREATE TABLE itens_venda (
+id_item INT AUTO_INCREMENT PRIMARY KEY,
+id_venda INT,
+id_p INT,
+quantidade INT NOT NULL,
+preco_unitario DECIMAL(10, 2) NOT NULL,
+FOREIGN KEY (id_venda) REFERENCES vendas(id_venda),
+FOREIGN KEY (id_p) REFERENCES produtos(id_p)
+);
+
+CREATE TABLE carrinho (
+id_carrinho INT AUTO_INCREMENT PRIMARY KEY,
+id_c INT NOT NULL,
+status ENUM('aberto', 'finalizado', 'cancelado') DEFAULT 'aberto',
+data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+data_modificacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+FOREIGN KEY (id_c) REFERENCES clientes(id_c)
+);
+
+
+
+Tabela - Clientes
+
+INSERT INTO clientes (id_c, nome_c, cpf, email_c, telefone_c, endereco_c)
+VALUES 
+(50, 'Julioo Silva', '12349908901', 'ojuliosil@gmail.com', '133345678', 'Ruaa A, 12'),
+(51, 'Jay Koristoff', '9408374593', 'okristoff@gmail.com', '934236667', 'Ruaa Z, 32'),
+(52, 'Susi Chorvere', '97624087864', 'osusi@gmail.com', '763300906', 'Ruaa AB, 22'),
+(53, 'Eduardo oElric', '55602346890', 'oduduelric@gmail.com', '367876534', 'Ruaa V, 64'),
+(54, 'Clarisse Loispector', '60890865789', 'olispectorisse@gmail.com', '444437895', 'Ruaa V, 68'),
+(55, 'Carolina doe Jesus', '09986740323', 'ocaroljesus@gmail.com', '193419770', 'Ruaa J, 03'),
+(56, 'Paulo Cooelho', '0998670433', 'ocoelho@gmail.com', '193559770', 'Ruaa V, 13');
+
+Tabela - Vendas 
+INSERT INTO vendas (id_c, total)
+VALUES 
+    (3, 249.90),
+    (50, 29.80),
+    (51, 2001.50),
+    (52, 200.00),
+    (53, 39.90),
+    (54, 330.99),
+    (55, 209.99),
+    (56, 49.90),
+    (50, 27.72),
+    (51, 1588.13);
+
+Tabela - Itens_vendas
+
+INSERT INTO itens_venda (id_venda, id_p, quantidade, preco_unitario)
+VALUES (1333, 1346, 20, 49.90), 
+(5555, 1535, 12, 89.90), 
+(1131, 2341, 32, 129.99), 
+(5346, 1666, 65, 69.00), 
+(7977, 4987, 05, 40.00), 
+(4226, 1876, 15, 68.00), 
+(6999, 7656, 13, 15.00), 
+(2245, 0978, 89, 90.80), 
+(6436, 3547, 55, 19.99), 
+(5886, 2354, 09, 74.00);
+
+Tabela -  carrinho
+
+INSERT INTO itens_carrinho (id_carrinho, id_p, quantidade, preco) 
+VALUES (153, 1, 2, 49.90);
+(575, 1535, 42, 89.90), 
+(161, 2341, 32, 129.99), 
+(530, 1666, 05, 69.00), 
+(657, 4987, 05, 40.00), 
+(456, 1876, 15, 68.00), 
+(693, 7656, 06, 15.00), 
+(225, 0978, 19, 90.80), 
+(237, 3547, 55, 19.99), 
+(646, 2354, 09, 94.00);
+
+
+codigo bruto:
+
+create database site;
+
+use site;
+
+CREATE TABLE clientes (
+id_c INT AUTO_INCREMENT PRIMARY KEY,
+nome_c VARCHAR(100) NOT NULL,
+email_c VARCHAR(100) UNIQUE NOT NULL,
+cpf VARCHAR(11) UNIQUE NOT NULL,
+telefone_c VARCHAR(15) NOT NULL,
+endereco_c TEXT NOT NULL
+);
+
+CREATE TABLE produtos (
+ID_p INT AUTO_INCREMENT PRIMARY KEY,
+nome_p VARCHAR(225) NOT NULL,
+descricao_p TEXT,
+preco_p DECIMAL(10, 2) NOT NULL,
+quantidade_estoque INT NOT NULL,
+imagem VARCHAR(255)
+);
+
+CREATE TABLE vendas (
+id_venda INT AUTO_INCREMENT PRIMARY KEY,
+id_c INT,
+data_venda DATETIME DEFAULT CURRENT_TIMESTAMP,
+total DECIMAL(10, 2) NOT NULL,
+FOREIGN KEY (id_c) REFERENCES clientes(id_c)
+);
+
+CREATE TABLE itens_venda (
+id_item INT AUTO_INCREMENT PRIMARY KEY,
+id_venda INT,
+id_p INT,
+quantidade INT NOT NULL,
+preco_unitario DECIMAL(10, 2) NOT NULL,
+FOREIGN KEY (id_venda) REFERENCES vendas(id_venda),
+FOREIGN KEY (id_p) REFERENCES produtos(id_p)
+);
+
+CREATE TABLE carrinho (
+id_carrinho INT AUTO_INCREMENT PRIMARY KEY,
+id_c INT NOT NULL,
+status ENUM('aberto', 'finalizado', 'cancelado') DEFAULT 'aberto',
+data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+data_modificacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+FOREIGN KEY (id_c) REFERENCES clientes(id_c)
+);
+
+
+Tabela - Clientes
+
+INSERT INTO clientes (id_c, nome_c, cpf, email_c, telefone_c, endereco_c)
+VALUES 
+(50, 'Julioo Silva', '12349908901', 'ojuliosil@gmail.com', '133345678', 'Ruaa A, 12'),
+(51, 'Jay Koristoff', '9408374593', 'okristoff@gmail.com', '934236667', 'Ruaa Z, 32'),
+(52, 'Susi Chorvere', '97624087864', 'osusi@gmail.com', '763300906', 'Ruaa AB, 22'),
+(53, 'Eduardo oElric', '55602346890', 'oduduelric@gmail.com', '367876534', 'Ruaa V, 64'),
+(54, 'Clarisse Loispector', '60890865789', 'olispectorisse@gmail.com', '444437895', 'Ruaa V, 68'),
+(55, 'Carolina doe Jesus', '09986740323', 'ocaroljesus@gmail.com', '193419770', 'Ruaa J, 03'),
+(56, 'Paulo Cooelho', '0998670433', 'ocoelho@gmail.com', '193559770', 'Ruaa V, 13');
+
+Tabela - Vendas 
+INSERT INTO vendas (id_c, total)
+VALUES 
+    (3, 249.90),
+    (50, 29.80),
+    (51, 2001.50),
+    (52, 200.00),
+    (53, 39.90),
+    (54, 330.99),
+    (55, 209.99),
+    (56, 49.90),
+    (50, 27.72),
+    (51, 1588.13);
+
+Tabela - Itens_vendas
+
+INSERT INTO itens_venda (id_venda, id_p, quantidade, preco_unitario)
+VALUES (1333, 1346, 20, 49.90), 
+(5555, 1535, 12, 89.90), 
+(1131, 2341, 32, 129.99), 
+(5346, 1666, 65, 69.00), 
+(7977, 4987, 05, 40.00), 
+(4226, 1876, 15, 68.00), 
+(6999, 7656, 13, 15.00), 
+(2245, 0978, 89, 90.80), 
+(6436, 3547, 55, 19.99), 
+(5886, 2354, 09, 74.00);
+
+Tabela -  carrinho
+
+INSERT INTO itens_carrinho (id_carrinho, id_p, quantidade, preco) 
+VALUES (153, 1, 2, 49.90);
+(575, 1535, 42, 89.90), 
+(161, 2341, 32, 129.99), 
+(530, 1666, 05, 69.00), 
+(657, 4987, 05, 40.00), 
+(456, 1876, 15, 68.00), 
+(693, 7656, 06, 15.00), 
+(225, 0978, 19, 90.80), 
+(237, 3547, 55, 19.99), 
+(646, 2354, 09, 94.00);
+
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.42 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| biblioteca         |
+| bibliotecas        |
+| escola1            |
+| information_schema |
+| loja               |
+| loja_construcao    |
+| lojaonline         |
+| mysql              |
+| performance_schema |
+| petshop            |
+| sistema_rh         |
+| sys                |
+| virtual1           |
+| virtual2           |
++--------------------+
+14 rows in set (0.06 sec)
+
+mysql> create database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create databases;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databases' at line 1
+mysql> create database site;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use site;
+Database changed
+mysql> CREATE TABLE clientes (
+    -> id_c INT AUTO_INCREMENT PRIMARY KEY,
+    -> nome_c VARCHAR(100) NOT NULL,
+    -> email_c VARCHAR(100) UNIQUE NOT NULL,
+    -> cpf VARCHAR(11) UNIQUE NOT NULL,
+    -> telefone_c VARCHAR(15) NOT NULL,
+    -> endereco_c TEXT NOT NULL,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 8
+mysql> CREATE TABLE clientes (
+    -> id_c INT AUTO_INCREMENT PRIMARY KEY,
+    -> nome_c VARCHAR(100) NOT NULL,
+    -> email_c VARCHAR(100) UNIQUE NOT NULL,
+    -> cpf VARCHAR(11) UNIQUE NOT NULL,
+    -> telefone_c VARCHAR(15) NOT NULL,
+    -> endereco_c TEXT NOT NULL
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> CREATE TABLE produtos (
+    -> ID_p INT AUTO_INCREMENT PRIMARY KEY,
+    -> nome_p VARCHAR(225) NOT NULL,
+    -> descricao_p TEXT,
+    -> preco_p DECIMAL(10, 2) NOT NULL,
+    -> quantidade estoque INT NOT NULL,
+    -> imagem VARCHAR(255)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'estoque INT NOT NULL,
+imagem VARCHAR(255)
+)' at line 6
+mysql> CREATE TABLE produtos (
+    -> ID_p INT AUTO_INCREMENT PRIMARY KEY,
+    -> nome_p VARCHAR(225) NOT NULL,
+    -> descricao_p TEXT,
+    -> preco_p DECIMAL(10, 2) NOT NULL,
+    -> quantidade_estoque INT NOT NULL,
+    -> imagem VARCHAR(255)
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> CREATE TABLE vendas (
+    -> id_venda INT AUTO_INCREMENT PRIMARY KEY,
+    -> id_cliente INT,
+    -> data_venda DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -> total DECIMAL(10, 2) NOT NULL,
+    -> FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
+    -> );
+ERROR 3734 (HY000): Failed to add the foreign key constraint. Missing column 'id_cliente' for constraint 'vendas_ibfk_1' in the referenced table 'clientes'
+mysql> CREATE TABLE vendas (
+    -> id_venda INT AUTO_INCREMENT PRIMARY KEY,
+    -> id_c INT,
+    -> data_venda DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -> total DECIMAL(10, 2) NOT NULL,
+    -> FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
+    -> );
+ERROR 1072 (42000): Key column 'id_cliente' doesn't exist in table
+mysql> CREATE TABLE vendas (
+    -> id_venda INT AUTO_INCREMENT PRIMARY KEY,
+    -> id_c INT,
+    -> data_venda DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -> total DECIMAL(10, 2) NOT NULL,
+    -> FOREIGN KEY (id_c) REFERENCES clientes(id_c)
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> CREATE TABLE itens_venda (
+    -> id_item INT AUTO_INCREMENT PRIMARY KEY,
+    -> id_venda INT,
+    -> id_p INT,
+    -> quantidade INT NOT NULL,
+    -> preco_unitario DECIMAL(10, 2) NOT NULL,
+    -> FOREIGN KEY (id_venda) REFERENCES vendas(id_venda),
+    -> FOREIGN KEY (id_p) REFERENCES produtos(id_p)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> CREATE TABLE carrinho (
+    -> id_carrinho INT AUTO_INCREMENT PRIMARY KEY,
+    -> id_c INT NOT NULL,
+    -> status ENUM('aberto', 'finalizado', 'cancelado') DEFAULT 'aberto',
+    -> data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -> data_modificacao DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    -> FOREIGN KEY (id_c) REFERENCES clientes(id_c)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
